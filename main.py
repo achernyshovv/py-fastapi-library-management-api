@@ -59,6 +59,7 @@ def get_book(book_id: int, db: Session = Depends(get_db)):
     db_book = crud.get_book(db=db, book_id=book_id)
     if db_book is None:
         raise HTTPException(status_code=404, detail="Book not found")
+
     return db_book
 
 
@@ -67,4 +68,5 @@ def get_books_by_author(author_id: int, db: Session = Depends(get_db)):
     books = db.query(models.DBBook).filter(models.DBBook.author_id == author_id).all()
     if not books:
         raise HTTPException(status_code=404, detail="No books found for this author")
+
     return books
